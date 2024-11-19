@@ -6,25 +6,6 @@ function App() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  // Función para decodificar manualmente el JWT
-  const decodeToken = (token: string): any => {
-    try {
-      // Dividir el token en partes (header, payload, signature)
-      const parts = token.split('.');
-      if (parts.length !== 3) {
-        throw new Error('Formato de token inválido');
-      }
-
-      // Decodificar el payload (segunda parte del token)
-      const payload = parts[1];
-      const decodedPayload = atob(payload); // Decodificar de Base64
-      return JSON.parse(decodedPayload);   // Convertir a objeto JSON
-    } catch (error) {
-      console.error('Error al decodificar el token:', error);
-      return null;
-    }
-  };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage('');
@@ -40,26 +21,8 @@ function App() {
 
       if (response.ok) {
         const data = await response.json();
-        const token = data.token;
-
-        console.log('Token recibido:', token);
-
-        // Decodificar el token para obtener el username
-        const decodedToken = decodeToken(token);
-
-        if (decodedToken) {
-          console.log('Token decodificado:', decodedToken);
-          if (decodedToken.username) {
-            setMessage(`¡Bienvenido, ${decodedToken.username}!`);
-          } else {
-            setMessage('Error: No se encontró el username en el token.');
-          }
-
-          // Puedes guardar el token en el almacenamiento local o sesión si es necesario
-          localStorage.setItem('token', token);
-        } else {
-          setMessage('Error al procesar el token JWT.');
-        }
+        setMessage(`¡Bienvenido, ${data.username}!`);
+        // Aquí puedes guardar el token o realizar otras acciones
       } else {
         const errorData = await response.json();
         setMessage(`Error: ${errorData.message}`);
