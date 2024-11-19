@@ -43,7 +43,7 @@ function App() {
         if (decodedToken.authorities == 'ROLE_ADMIN') {
           navigate('/Admin'); // Redirigir a /admin si es admin
         } else {
-          // Redirigir a otra página si no es admin
+          navigate('/Usuario');
         }
       } else {
         const errorData = await response.json();

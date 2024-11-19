@@ -1,0 +1,78 @@
+/* Estilos generales para la página de usuario */
+.user-page {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+    padding: 20px;
+}
+
+/* Encabezado */
+.user-header {
+    background-color: #5cb85c;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 1000;
+}
+
+.user-header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* Contenido principal */
+.user-main {
+    margin-top: 100px; /* Espacio para el encabezado */
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-main p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Botón de cerrar sesión */
+.btn-logout {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #f54e42, #d4145a);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-logout:hover {
+    background: linear-gradient(135deg, #d4145a, #f54e42);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-logout:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
