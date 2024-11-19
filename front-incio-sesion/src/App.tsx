@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import './App.css';
-import './Admin';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'; // Importa jwt-decode
+
+interface DecodedToken {
+  sub: string;
+  authorities: string;
+  exp: number;
+}
 
 function App() {
   const [username, setUsername] = useState('');
@@ -24,13 +30,20 @@ function App() {
 
       if (response.ok) {
         const data = await response.json();
-        setMessage(`¡Bienvenido, ${data.username}!`);
-        // Guarda el token en el almacenamiento local o de sesión si es necesario
+
+        // Guarda el token en el almacenamiento local
         localStorage.setItem('token', data.token);
-        // Verificar si el usuario tiene el rol de 'admin'
-        console.log();
-        if (data.role == 'admin') {
+        
+        // Decodifica el token para verificar el rol
+        const decodedToken: DecodedToken = jwtDecode<DecodedToken>(data.token);
+
+        setMessage(`¡Bienvenido, ${decodedToken.sub}!`);
+        console.log(decodedToken);
+        // Redirigir según el rol
+        if (decodedToken.authorities == 'ROLE_ADMIN') {
           navigate('/Admin'); // Redirigir a /admin si es admin
+        } else {
+          // Redirigir a otra página si no es admin
         }
       } else {
         const errorData = await response.json();
