@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import './App.css';
+import './Admin';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Hook para la navegación
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +25,13 @@ function App() {
       if (response.ok) {
         const data = await response.json();
         setMessage(`¡Bienvenido, ${data.username}!`);
-        // Aquí puedes guardar el token o realizar otras acciones
+        // Guarda el token en el almacenamiento local o de sesión si es necesario
+        localStorage.setItem('token', data.token);
+        // Verificar si el usuario tiene el rol de 'admin'
+        console.log();
+        if (data.role == 'admin') {
+          navigate('/Admin'); // Redirigir a /admin si es admin
+        }
       } else {
         const errorData = await response.json();
         setMessage(`Error: ${errorData.message}`);
